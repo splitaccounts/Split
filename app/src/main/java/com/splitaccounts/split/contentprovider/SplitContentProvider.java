@@ -5,27 +5,37 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 
+import com.splitaccounts.split.database.AbstractSplitDbTable;
 import com.splitaccounts.split.database.SplitDbHelper;
 import com.splitaccounts.split.database.TableCurrency;
 import com.splitaccounts.split.database.TableProject;
+import com.splitaccounts.split.database.TableProjectUser;
 
 /**
- * Created by gaellecoz on 22.12.2015.
+ * Provider class for the database
+ *
+ * @author <a href="mailto:splitaccounts@le-coz.net">Gaël LE COZ</a>
  */
-
 public class SplitContentProvider extends ContentProvider {
 
-
-    // database
+    /**
+     * The database
+     */
     private SplitDbHelper database;
 
+    /**
+     * The provider authority
+     */
     private static final String AUTHORITY = "com.splitaccounts.split.contentprovider";
 
+    /*
     private static final String BASE_PATH = "split";
+
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + BASE_PATH);
 
@@ -34,10 +44,23 @@ public class SplitContentProvider extends ContentProvider {
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
             + "/project";
 
+    */
+
+    /**
+     * The URI matcher of the content provider
+     */
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+    /**
+     * Instance of the URI matcher for all the tables
+     */
     static {
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH, TableProject.PROVIDER);
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", TableProject.PROVIDER_ID);
+        sURIMatcher.addURI(AUTHORITY, TableCurrency.TABLE_NAME, TableCurrency.PROVIDER);
+        sURIMatcher.addURI(AUTHORITY, TableCurrency.TABLE_NAME + "/#", TableCurrency.PROVIDER_ID);
+        sURIMatcher.addURI(AUTHORITY, TableProject.TABLE_NAME, TableProject.PROVIDER);
+        sURIMatcher.addURI(AUTHORITY, TableProject.TABLE_NAME + "/#", TableProject.PROVIDER_ID);
+        sURIMatcher.addURI(AUTHORITY, TableProjectUser.TABLE_NAME, TableProjectUser.PROVIDER);
+        sURIMatcher.addURI(AUTHORITY, TableProjectUser.TABLE_NAME + "/#", TableProjectUser.PROVIDER_ID);
     }
 
     @Override
@@ -67,22 +90,21 @@ public class SplitContentProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 
 
-        // Uisng SQLiteQueryBuilder instead of query() method
+        // Using SQLiteQueryBuilder instead of query() method
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
         // check if the caller has requested a column which does not exists
-        checkColumns(projection);
-
-        // Set the table
-        queryBuilder.setTables(TodoTable.TABLE_TODO);
+        //checkColumns(projection);
 
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
-            case TODOS:
+            case TableCurrency.PROVIDER:
+                // Set the table
+                queryBuilder.setTables(TableCurrency.TABLE_NAME);
                 break;
-            case TODO_ID:
+            case TableCurrency.PROVIDER_ID:
                 // adding the ID to the original query
-                queryBuilder.appendWhere(TodoTable.COLUMN_ID + "="
+                queryBuilder.appendWhere(AbstractSplitDbTable._ID + "="
                         + uri.getLastPathSegment());
                 break;
             default:

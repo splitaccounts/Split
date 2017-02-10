@@ -7,7 +7,15 @@ import java.util.List;
  * Created by gaellecoz on 13.11.2015.
  */ /* Setting */
 public final class TableSetting extends AbstractSplitDbTable {
-    public static final String PROVIDER_ID = "400";
+    /**
+     * The ID for the provider of all the entries
+     */
+    public static final String PROVIDER = "400";
+
+    /**
+     * The ID of the provider for a single entry
+     */
+    public static final String PROVIDER_ID = "410";
     public static final String TABLE_NAME = "setting";
     public static final String COLUMN_VALUE_TYPE_ID = "value_type_id";
     public static final String COLUMN_NAME = "name";

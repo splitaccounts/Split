@@ -5,9 +5,18 @@ import java.util.List;
 
 /**
  * Created by gaellecoz on 13.11.2015.
- */ /* ValueType */
+ */
+
 public final class TableValueType extends AbstractSplitDbTable {
-    public static final String PROVIDER_ID = "600";
+    /**
+     * The ID for the provider of all the entries
+     */
+    public static final String PROVIDER = "600";
+
+    /**
+     * The ID of the provider for a single entry
+     */
+    public static final String PROVIDER_ID = "610";
     public static final String TABLE_NAME = "value_type";
     public static final String COLUMN_NAME = "name";
     private String[] SQL_CREATE = {

@@ -7,7 +7,15 @@ import java.util.List;
  * Created by gaellecoz on 13.11.2015.
  */ /* State */
 public final class TableState extends AbstractSplitDbTable {
-    public static final String PROVIDER_ID = "500";
+    /**
+     * The ID for the provider of all the entries
+     */
+    public static final String PROVIDER = "500";
+
+    /**
+     * The ID of the provider for a single entry
+     */
+    public static final String PROVIDER_ID = "510";
     public static final String TABLE_NAME = "project_state";
     public String COLUMN_NAME = "name";
     private String[] SQL_CREATE = {

@@ -10,9 +10,12 @@ import java.util.List;
  */
 public final class SplitDbContractV1 {
 
-    // To prevent someone from accidentally instantiating the contract class,
-    // give it an empty constructor.
-    public SplitDbContractV1() {}
+
+    /**
+     * Constructor is private and empty to prevent someone from accidentally
+     * instantiating the contract class
+    */
+    private SplitDbContractV1() {}
 
     public static final String CREATE = "CREATE TABLE IF NOT EXISTS ";
     public static final String TYPE_TEXT = " TEXT";

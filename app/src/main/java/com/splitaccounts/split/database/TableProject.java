@@ -6,7 +6,14 @@ import java.util.List;
  * Created by gaellecoz on 13.11.2015.
  */ /* Project */
 public final class TableProject extends AbstractSplitDbTable {
+    /**
+     * The ID for the provider of all the entries
+     */
     public static final int PROVIDER = 200;
+
+    /**
+     * The ID of the provider for a single entry
+     */
     public static final int PROVIDER_ID = 210;
     public static final String TABLE_NAME = "project";
     public static final String COLUMN_STATE_ID = "state_id";

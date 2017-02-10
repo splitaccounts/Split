@@ -27,6 +27,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.splitaccounts.split.ExpenditureListActivity" />
         </activity>
+
+        <provider android:authorities="list"
+            android:enabled="true"
+            android:exported="false"
+            android:grantUriPermissions="false"
+            android:initOrder="1"
+            android:label="Split database content provider"
+            android:multiprocess="false"
+            android:name="com.splitaccounts.split.SplitContentProvider"
+            android:syncable="false" />
     </application>
 
 </manifest>
